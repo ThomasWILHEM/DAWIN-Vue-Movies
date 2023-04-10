@@ -1,6 +1,11 @@
 <template>
     <div class="card">
-        <h1>{{ movie.title }}</h1>
+        <div>
+            <h1>{{ movie.title }}</h1>
+            <ButtonBase>
+                <router-link :to="moviePath">Infos</router-link>
+            </ButtonBase>
+        </div>
         <div class="separator"></div>
         <div>
             <p>{{ movie.director.name }}</p>
@@ -12,9 +17,18 @@
 </template>
 
 <script>
+import ButtonBase from "@/components/Base/ButtonBase.vue";
+
 export default {
     name: "MovieItem",
-    props: ['movie']
+    components: {ButtonBase},
+    props: ['movie'],
+    computed: {
+        moviePath() {
+            console.log(this.moviePath);
+            return '/movie/' + this.movie.id;
+        }
+    }
 }
 </script>
 
@@ -30,5 +44,10 @@ export default {
 
 .separator {
     border-bottom: 2px solid #25272d;
+}
+
+router-link {
+    color: #25272d;
+    text-decoration: none;
 }
 </style>
