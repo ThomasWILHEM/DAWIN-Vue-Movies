@@ -1,32 +1,30 @@
 <template>
     <div class="card">
-        <div>
-            <h1>{{ movie.title }}</h1>
-            <ButtonBase>
-                <router-link :to="moviePath">Infos</router-link>
-            </ButtonBase>
+        <div class="movieInfos">
+            <h2>{{ movie.title }} ({{movie.year}})</h2>
+            <p>{{movie.director.name}}</p>
         </div>
-        <div class="separator"></div>
-        <div>
-            <p>{{ movie.director.name }}</p>
-            <p>Year: {{ movie.year }}</p>
-            <p>Language: {{ movie.language }}</p>
-            <p>Genre: {{ movie.genre }}</p>
+        <div class="actions">
+            <router-link :to="movieInfosPath">
+                <button>Infos</button>
+            </router-link>
+            <router-link :to="movieEditPath">
+                <button>Edit</button>
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
-import ButtonBase from "@/components/Base/ButtonBase.vue";
-
 export default {
     name: "MovieItem",
-    components: {ButtonBase},
     props: ['movie'],
     computed: {
-        moviePath() {
-            console.log(this.moviePath);
+        movieInfosPath() {
             return '/movie/' + this.movie.id;
+        },
+        movieEditPath() {
+            return '/movie/' + this.movie.id + '/edit';
         }
     }
 }
@@ -37,17 +35,41 @@ export default {
     background-color: #33373e;
     color: #b5a068;
     width: 50%;
-    border-radius: 20px;
+    border-radius: 30px;
     border: 2px solid #25272d;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
+    display: flex;
 }
 
-.separator {
-    border-bottom: 2px solid #25272d;
-}
-
-router-link {
+.actions button{
+    background-color: #b5a068;
+    border: none;
     color: #25272d;
-    text-decoration: none;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 30px;
+    font-weight: bolder;
+    font-size: medium;
+    margin-left: 1rem;
+    margin-top: 1rem;
 }
+
+.actions button:hover{
+    background-color: #97885e;
+}
+
+.card{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.movieInfos h2{
+    margin-bottom: 0;
+}
+
+.movieInfos p {
+    margin-top: 0.2rem;
+}
+
 </style>

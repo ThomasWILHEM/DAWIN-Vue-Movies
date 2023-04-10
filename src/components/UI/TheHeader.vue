@@ -1,10 +1,6 @@
 <template>
     <div id="header">
-        <h1>Cinematics</h1>
-        <div>
-            <router-link to="/">Movies</router-link>
-            <router-link to="/add">Add a movie</router-link>
-        </div>
+        <img src="../../assets/logo-cinematics.png">
     </div>
 </template>
 
@@ -23,5 +19,11 @@ export default {
     text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+img{
+    width: 20rem;
+    height: fit-content;
 }
 </style>
