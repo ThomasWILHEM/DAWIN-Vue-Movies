@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-      <h2>The Footer</h2>
+        <h2>Thomas WILHEM - DAWIN B</h2>
     </div>
 </template>
 

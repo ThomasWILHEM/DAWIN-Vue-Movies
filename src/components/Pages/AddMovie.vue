@@ -6,16 +6,16 @@
                 <div id="image">
                     <img :src="imageUrl"/>
                 </div>
-                <button class="actions" @click.prevent="openFileDialog">
-                    Add an image
-                </button>
             </div>
             <div id="fields">
                 <input v-model="createdMovie.title" placeholder="Title" type="text">
                 <input v-model="createdMovie.year" placeholder="Year" type="number">
                 <input v-model="createdMovie.language" placeholder="Language" type="text">
-                <input v-model="createdMovie.director" placeholder="Director" type="text">
+                <input v-model="createdMovie.director.name" placeholder="Director's name" type="text">
+                <input v-model="createdMovie.director.nationality" placeholder="Director's nationality" type="text">
+                <input v-model="createdMovie.director.birthdate" placeholder="Director's birthdate" type="text">
                 <input v-model="createdMovie.genre" placeholder="Genre" type="text">
+                <input v-model="imageUrl" placeholder="Image" type="url" @change="changeMovieImage">
                 <button class="actions" @click.prevent="addMovie">
                     Add
                 </button>
@@ -27,37 +27,31 @@
 <script>
 export default {
     name: "AddMovie",
-    inject: ['movies'],
     data() {
         return {
             createdMovie: {
+                id: new Date().toISOString(),
                 title: '',
                 year: '',
                 language: '',
-                director: '',
-                genre: ''
+                director: {
+                    name: '',
+                    nationality: '',
+                    birthdate: ''
+                },
+                genre: '',
+                image: ''
             },
             imageUrl: ''
         }
     },
     methods: {
         addMovie() {
-            console.log(this.movies);
+            this.$store.commit('addMovie', {movie: this.createdMovie});
+            this.$router.push('/')
         },
-        openFileDialog() {
-            const input = document.createElement('input')
-            input.type = 'file'
-            input.accept = 'image/*'
-            input.onchange = this.handleImageUpload
-            input.click()
-        },
-        handleImageUpload(event) {
-            const file = event.target.files[0]
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
-            reader.onload = () => {
-                this.imageUrl = reader.result
-            }
+        changeMovieImage() {
+            this.createdMovie.image = this.imageUrl;
         }
     }
 }
@@ -94,7 +88,7 @@ h2 {
 
 .movieDetails {
     width: 80%;
-    height: 30rem;
+    height: 35rem;
     background-color: #33373e;
     margin: auto;
     border: 2px solid #25272d;

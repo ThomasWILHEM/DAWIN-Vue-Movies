@@ -1,5 +1,14 @@
 <template>
+    <router-link class="center-link" to="/">
+        <button>Return</button>
+    </router-link>
     <h2>Movie Details</h2>
+    <button @click="setEdit">
+        {{ editText }}
+    </button>
+    <button @click="deleteMovie">
+        Delete
+    </button>
     <div class="movieDetails">
         <div id="movieImage">
             <div id="image">
@@ -7,33 +16,52 @@
             </div>
         </div>
         <div id="fields">
-            <input v-model="movie.title" disabled placeholder="Title" type="text">
-            <input v-model="movie.year" disabled placeholder="Year" type="number">
-            <input v-model="movie.language" disabled placeholder="Language" type="text">
-            <input v-model="movie.genre" disabled placeholder="Genre" type="text">
+            <input v-model="movie.title" :disabled="!isEditing" placeholder="Title" type="text">
+            <input v-model="movie.year" :disabled="!isEditing" placeholder="Year" type="number">
+            <input v-model="movie.language" :disabled="!isEditing" placeholder="Language" type="text">
+            <input v-model="movie.genre" :disabled="!isEditing" placeholder="Genre" type="text">
+            <input v-if="isEditing" v-model="movie.image" placeholder="Genre" type="text">
         </div>
     </div>
     <h2>Director</h2>
     <div class="directorDetails">
         <div id="fields">
-            <input v-model="movie.director.name" disabled type="text">
-            <input v-model="movie.director.nationality" disabled type="text">
-            <input v-model="movie.director.birthdate" disabled type="text">
+            <input v-model="movie.director.name" :disabled="!isEditing" type="text">
+            <input v-model="movie.director.nationality" :disabled="!isEditing" type="text">
+            <input v-model="movie.director.birthdate" :disabled="!isEditing" type="text">
         </div>
     </div>
 </template>
 
 <script>
+
 export default {
     name: "MovieDetails",
-    inject: ['movies'],
     data() {
         return {
             movie: [],
+            isEditing: false
         };
+    },
+    computed: {
+        movies() {
+            return this.$store.getters.movies;
+        },
+        editText() {
+            return this.isEditing ? 'Save' : 'Edit';
+        }
     },
     created() {
         this.movie = this.movies.filter(movie => movie.id == this.$route.params.id)[0];
+    },
+    methods: {
+        setEdit() {
+            this.isEditing = !this.isEditing;
+        },
+        deleteMovie() {
+            this.$store.commit('deleteMovie', {movie: this.movie});
+            this.$router.push('/')
+        }
     }
 }
 </script>
@@ -48,6 +76,23 @@ h2 {
     font-weight: bolder;
     font-size: xx-large;
     text-align: center;
+}
+
+button {
+    background-color: #b5a068;
+    border: none;
+    color: #25272d;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 30px;
+    font-weight: bolder;
+    font-size: medium;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background-color: #97885e;
 }
 
 #fields {

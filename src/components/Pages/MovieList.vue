@@ -18,7 +18,11 @@ import MovieItem from "@/components/Elements/MovieItem.vue";
 export default {
     name: "MovieList",
     components: {MovieItem},
-    inject: ['movies'],
+    computed: {
+        movies() {
+            return this.$store.getters.movies;
+        }
+    }
 }
 </script>
 

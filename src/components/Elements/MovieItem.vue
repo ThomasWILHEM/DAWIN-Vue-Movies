@@ -1,15 +1,12 @@
 <template>
     <div class="card">
         <div class="movieInfos">
-            <h2>{{ movie.title }} ({{movie.year}})</h2>
-            <p>{{movie.director.name}}</p>
+            <h2>{{ movie.title }} ({{ movie.year }})</h2>
+            <p>{{ movie.director.name }}</p>
         </div>
         <div class="actions">
             <router-link :to="movieInfosPath">
                 <button>Infos</button>
-            </router-link>
-            <router-link :to="movieEditPath">
-                <button>Edit</button>
             </router-link>
         </div>
     </div>
@@ -41,7 +38,7 @@ export default {
     display: flex;
 }
 
-.actions button{
+.actions button {
     background-color: #b5a068;
     border: none;
     color: #25272d;
@@ -54,17 +51,17 @@ export default {
     margin-top: 1rem;
 }
 
-.actions button:hover{
+.actions button:hover {
     background-color: #97885e;
 }
 
-.card{
+.card {
     display: flex;
     justify-content: space-between;
     padding: 0 2rem;
 }
 
-.movieInfos h2{
+.movieInfos h2 {
     margin-bottom: 0;
 }
 
