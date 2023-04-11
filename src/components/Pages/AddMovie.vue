@@ -1,6 +1,6 @@
 <template>
     <h2>Add a movie</h2>
-    <div class="addMovie">
+    <div class="movieDetails">
         <form>
             <div id="movieImage">
                 <div id="image">
@@ -92,7 +92,7 @@ h2 {
     color: #5d594c;
 }
 
-.addMovie {
+.movieDetails {
     width: 80%;
     height: 30rem;
     background-color: #33373e;
