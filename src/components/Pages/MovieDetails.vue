@@ -1,14 +1,18 @@
 <template>
-    <router-link class="center-link" to="/">
-        <button>Return</button>
-    </router-link>
+    <div id="actions">
+        <router-link class="center-link" to="/">
+            <button>Return</button>
+        </router-link>
+        <div v-if="isEditMode" id="editButtons">
+            <button @click="setEdit">
+                {{ editText }}
+            </button>
+            <button @click="deleteMovie">
+                Delete
+            </button>
+        </div>
+    </div>
     <h2>Movie Details</h2>
-    <button @click="setEdit">
-        {{ editText }}
-    </button>
-    <button @click="deleteMovie">
-        Delete
-    </button>
     <div class="movieDetails">
         <div id="movieImage">
             <div id="image">
@@ -40,7 +44,8 @@ export default {
     data() {
         return {
             movie: [],
-            isEditing: false
+            isEditing: false,
+            isEditMode: false
         };
     },
     computed: {
@@ -53,6 +58,10 @@ export default {
     },
     created() {
         this.movie = this.movies.filter(movie => movie.id == this.$route.params.id)[0];
+        if (this.$route.name === 'movie-edit') {
+            console.log("oui");
+            this.isEditMode = true;
+        }
     },
     methods: {
         setEdit() {
@@ -70,6 +79,15 @@ export default {
 input {
     background-color: #33373e;
     color: #b5a068;
+}
+
+#actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+#editButtons {
+    margin-right: 1rem;
 }
 
 h2 {
@@ -135,8 +153,9 @@ button:hover {
 }
 
 #movieImage {
-    width: 40%;
-    height: 100%;
+    min-width: 20rem;
+    height: auto;
+    object-fit: contain;
     display: flex;
     flex-direction: column;
     align-items: center;

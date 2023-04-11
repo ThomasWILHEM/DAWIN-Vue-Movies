@@ -8,6 +8,9 @@
             <router-link :to="movieInfosPath">
                 <button>Infos</button>
             </router-link>
+            <router-link :to="movieEditPath">
+                <button>Edit</button>
+            </router-link>
         </div>
     </div>
 </template>
