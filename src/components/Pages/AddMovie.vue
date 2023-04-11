@@ -88,7 +88,7 @@ h2 {
 
 .movieDetails {
     width: 80%;
-    height: 35rem;
+    height: 40rem;
     background-color: #33373e;
     margin: auto;
     border: 2px solid #25272d;
@@ -96,8 +96,9 @@ h2 {
 }
 
 #movieImage {
-    width: 40%;
-    height: 100%;
+    min-width: 20rem;
+    height: auto;
+    object-fit: contain;
     display: flex;
     flex-direction: column;
     align-items: center;
