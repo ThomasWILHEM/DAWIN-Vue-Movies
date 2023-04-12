@@ -4,17 +4,18 @@
         <form>
             <div id="movieImage">
                 <div id="image">
-                    <img :src="imageUrl"/>
+                    <p v-if="imageUrl === ''">No image</p>
+                    <img v-else :src="imageUrl"/>
                 </div>
             </div>
             <div id="fields">
-                <input v-model="createdMovie.title" placeholder="Title" type="text">
-                <input v-model="createdMovie.year" placeholder="Year" type="number">
-                <input v-model="createdMovie.language" placeholder="Language" type="text">
-                <input v-model="createdMovie.genre" placeholder="Genre" type="text">
-                <input v-model="imageUrl" placeholder="Image" type="url" @change="changeMovieImage">
+                <input v-model="createdMovie.title" placeholder="Title" required type="text">
+                <input v-model="createdMovie.year" placeholder="Year" required type="number">
+                <input v-model="createdMovie.language" placeholder="Language" required type="text">
+                <input v-model="createdMovie.genre" placeholder="Genre" required type="text">
+                <input v-model="imageUrl" placeholder="Image" required type="url" @change="changeMovieImage">
                 <div id="directorActions">
-                    <select @change="changeDirector">
+                    <select required @change="changeDirector">
                         <option disabled selected>Choose a director</option>
                         <option v-for="director in directors" :key="director.id" :value="director.id">{{
                             director.name
@@ -35,9 +36,12 @@
     <div v-if="createDirector" class="directorDetails">
         <form>
             <div id="fields">
-                <input v-model="createdMovie.director.name" placeholder="Director's name" type="text">
-                <input v-model="createdMovie.director.nationality" placeholder="Director's nationality" type="text">
-                <input v-model="createdMovie.director.birthdate" placeholder="Director's birthdate" type="text">
+                <input v-model="createdMovie.director.name" :required="createDirector" placeholder="Director's name"
+                       type="text">
+                <input v-model="createdMovie.director.nationality" :required="createDirector"
+                       placeholder="Director's nationality" type="text">
+                <input v-model="createdMovie.director.birthdate" :required="createDirector"
+                       placeholder="Director's birthdate" type="text">
             </div>
             <button class="actions" @click.prevent="addDirector">
                 Add director
@@ -121,6 +125,11 @@ h2 {
 #directorActions {
     display: flex;
     width: 70%;
+}
+
+#image p {
+    width: 100%;
+    height: 100%;
 }
 
 
