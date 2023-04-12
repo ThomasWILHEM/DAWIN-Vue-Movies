@@ -7,8 +7,11 @@
             </router-link>
         </div>
     </div>
+    <div id="fields">
+        <input v-model="filter" placeholder="Search by name, director or year" @change="searchMovie">
+    </div>
     <div id="movieList">
-        <MovieItem v-for="movie in movies" :key="movie.id" :movie="movie"></MovieItem>
+        <MovieItem v-for="movie in filteredMovie" :key="movie.id" :movie="movie"></MovieItem>
     </div>
 </template>
 
@@ -18,9 +21,25 @@ import MovieItem from "@/components/Elements/MovieItem.vue";
 export default {
     name: "MovieList",
     components: {MovieItem},
+    data() {
+        return {
+            filter: null
+        };
+    },
     computed: {
         movies() {
             return this.$store.getters.movies;
+        },
+        filteredMovie() {
+            return this.movies.filter(m => {
+                if (!this.filter) return true;
+                return m.title.includes(this.filter) || m.director.name.includes(this.filter) || m.year == this.filter;
+            })
+        }
+    },
+    methods: {
+        searchMovie() {
+            console.log(this.filter);
         }
     }
 }
@@ -78,5 +97,25 @@ button:hover {
 .center-link button {
     margin: auto;
 }
+
+#fields {
+    display: flex;
+    justify-content: center;
+}
+
+#fields input, select {
+    background-color: #33373e;
+    color: #b5a068;
+    width: 40%;
+    margin: 1rem 0;
+    height: 3rem;
+    border-radius: 30px;
+    padding: 0 1rem;
+}
+
+#fields input::placeholder {
+    color: #5d594c;
+}
+
 
 </style>

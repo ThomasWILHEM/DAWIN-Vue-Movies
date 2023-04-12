@@ -14,7 +14,7 @@
                 <input v-model="createdMovie.genre" placeholder="Genre" type="text">
                 <input v-model="imageUrl" placeholder="Image" type="url" @change="changeMovieImage">
                 <div id="directorActions">
-                    <select>
+                    <select @change="changeDirector">
                         <option disabled selected>Choose a director</option>
                         <option v-for="director in directors" :key="director.id" :value="director.id">{{
                             director.name
@@ -72,11 +72,13 @@ export default {
     methods: {
         addMovie() {
             this.$store.commit('addMovie', {movie: this.createdMovie});
-            this.$router.push('/')
+            this.$router.push('/');
+            console.log(this.createdMovie);
         },
         addDirector() {
             this.$store.commit('addDirector', {director: this.createdMovie.director});
             this.createDirector = false;
+            console.log(this.createdMovie);
         },
         changeMovieImage() {
             this.createdMovie.image = this.imageUrl;
@@ -88,6 +90,11 @@ export default {
                 this.createDirector = true;
                 this.createdMovie.director.id = this.nextDirectorId;
             }
+        },
+        changeDirector(event) {
+            const directorId = event.target.value;
+            this.createdMovie.director = this.directors[directorId - 1];
+            console.log(this.createdMovie);
         }
     },
     computed: {
