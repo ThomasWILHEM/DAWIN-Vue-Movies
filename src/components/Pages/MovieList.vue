@@ -1,13 +1,15 @@
 <template>
     <div id="title">
         <h2>Movies</h2>
-        <div class="actions">
-            <router-link class="center-link" to="/add">
-                <button>Add</button>
-            </router-link>
-        </div>
     </div>
     <div id="fields">
+        <div class="actions">
+            <router-link class="center-link" to="/add">
+                <base-button>
+                    Add
+                </base-button>
+            </router-link>
+        </div>
         <input v-model="filter" placeholder="Search by name, director or year" @change="searchMovie">
     </div>
     <div id="movieList">
@@ -17,10 +19,11 @@
 
 <script>
 import MovieItem from "@/components/Elements/MovieItem.vue";
+import BaseButton from "@/components/BaseButton.vue";
 
 export default {
     name: "MovieList",
-    components: {MovieItem},
+    components: {BaseButton, MovieItem},
     data() {
         return {
             filter: null
@@ -61,31 +64,15 @@ h2 {
 
 #title {
     display: flex;
+    flex-direction: column;
     width: 100%;
     align-items: center;
     justify-content: center;
 }
 
-button {
-    background-color: #b5a068;
-    border: none;
-    color: #25272d;
-    width: 5rem;
-    height: 2rem;
-    border-radius: 30px;
-    font-weight: bolder;
-    font-size: medium;
-    margin-left: 1rem;
-    margin-top: 1rem;
-}
-
-button:hover {
-    background-color: #97885e;
-}
-
 .actions {
     display: flex;
-
+    margin-right: 2rem;
 }
 
 .center-link {

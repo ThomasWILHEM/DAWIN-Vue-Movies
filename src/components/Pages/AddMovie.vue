@@ -1,4 +1,9 @@
 <template>
+    <router-link class="center-link" to="/">
+        <base-button id="return">
+            Return
+        </base-button>
+    </router-link>
     <h2>Add a movie</h2>
     <div class="movieDetails">
         <form>
@@ -22,13 +27,13 @@
                             }}
                         </option>
                     </select>
-                    <button class="actions" @click.prevent="toggleAddDirector">
+                    <base-button class="actions" @click.prevent="toggleAddDirector">
                         {{ textDirector }}
-                    </button>
+                    </base-button>
                 </div>
-                <button :disabled="createDirector" class="actions" @click.prevent="addMovie">
+                <base-button :disabled="createDirector" class="actions" @click.prevent="addMovie">
                     Add
-                </button>
+                </base-button>
             </div>
         </form>
     </div>
@@ -43,16 +48,19 @@
                 <input v-model="createdMovie.director.birthdate" :required="createDirector"
                        placeholder="Director's birthdate" type="text">
             </div>
-            <button class="actions" @click.prevent="addDirector">
+            <base-button class="actions" @click.prevent="addDirector">
                 Add director
-            </button>
+            </base-button>
         </form>
     </div>
 </template>
 
 <script>
+import BaseButton from "@/components/BaseButton.vue";
+
 export default {
     name: "AddMovie",
+    components: {BaseButton},
     data() {
         return {
             createdMovie: {
@@ -127,11 +135,14 @@ h2 {
     width: 70%;
 }
 
+#return {
+    margin-left: 1rem;
+}
+
 #image p {
     width: 100%;
     height: 100%;
 }
-
 
 #directorActions button {
     width: 2rem;
@@ -216,23 +227,4 @@ img {
     border-radius: 30px;
 }
 
-button.actions {
-    background-color: #b5a068;
-    border: none;
-    color: #25272d;
-    width: 10rem;
-    height: 2rem;
-    border-radius: 30px;
-    font-weight: bolder;
-    font-size: medium;
-    margin-top: 2rem;
-}
-
-button.actions:hover {
-    background-color: #97885e;
-}
-
-button.actions:disabled {
-    background-color: rgba(151, 136, 94, 0.2);
-}
 </style>
