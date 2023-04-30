@@ -1,15 +1,17 @@
 <template>
     <div id="actions">
         <router-link class="center-link" to="/">
-            <button>Return</button>
+            <base-button id="return">
+                Return
+            </base-button>
         </router-link>
         <div v-if="isEditMode" id="editButtons">
-            <button @click="setEdit">
+            <base-button @click="setEdit">
                 {{ editText }}
-            </button>
-            <button @click="deleteMovie">
+            </base-button>
+            <base-button @click="deleteMovie">
                 Delete
-            </button>
+            </base-button>
         </div>
     </div>
     <h2>Movie Details</h2>
@@ -20,27 +22,56 @@
             </div>
         </div>
         <div id="fields">
-            <input v-model="movie.title" :disabled="!isEditing" placeholder="Title" type="text">
-            <input v-model="movie.year" :disabled="!isEditing" placeholder="Year" type="number">
-            <input v-model="movie.language" :disabled="!isEditing" placeholder="Language" type="text">
-            <input v-model="movie.genre" :disabled="!isEditing" placeholder="Genre" type="text">
-            <input v-if="isEditing" v-model="movie.image" placeholder="Genre" type="text">
+            <div class="field">
+                <label>Title : </label>
+                <input v-model="movie.title" :disabled="!isEditing" placeholder="Title" type="text">
+            </div>
+            <div class="field">
+                <label>Year : </label>
+                <input v-model="movie.year" :disabled="!isEditing" placeholder="Year" type="number">
+            </div>
+            <div class="field">
+                <label>Language : </label>
+                <input v-model="movie.language" :disabled="!isEditing" placeholder="Language" type="text">
+            </div>
+            <div class="field">
+                <label>Genre : </label>
+                <input v-model="movie.genre" :disabled="!isEditing" placeholder="Genre" type="text">
+            </div>
+            <div v-if="isEditing" class="field">
+                <label>Image : </label>
+                <input v-model="movie.image" placeholder="Genre" type="text">
+            </div>
         </div>
     </div>
     <h2>Director</h2>
     <div class="directorDetails">
         <div id="fields">
-            <input v-model="movie.director.name" :disabled="!isEditing" type="text">
-            <input v-model="movie.director.nationality" :disabled="!isEditing" type="text">
-            <input v-model="movie.director.birthdate" :disabled="!isEditing" type="text">
+            <div class="field">
+                <label>Name : </label>
+                <input v-model="movie.director.name" :disabled="!isEditing" type="text">
+            </div>
+
+            <div class="field">
+                <label>Nationality : </label>
+                <input v-model="movie.director.nationality" :disabled="!isEditing" type="text">
+            </div>
+
+            <div class="field">
+                <label>Birthdate : </label>
+                <input v-model="movie.director.birthdate" :disabled="!isEditing" type="text">
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 
+import BaseButton from "@/components/BaseButton.vue";
+
 export default {
     name: "MovieDetails",
+    components: {BaseButton},
     data() {
         return {
             movie: [],
@@ -85,31 +116,14 @@ input {
     justify-content: space-between;
 }
 
-#editButtons {
-    margin-right: 1rem;
+button {
+    margin: 1rem;
 }
 
 h2 {
     font-weight: bolder;
     font-size: xx-large;
     text-align: center;
-}
-
-button {
-    background-color: #b5a068;
-    border: none;
-    color: #25272d;
-    width: 5rem;
-    height: 2rem;
-    border-radius: 30px;
-    font-weight: bolder;
-    font-size: medium;
-    margin-left: 1rem;
-    margin-top: 1rem;
-}
-
-button:hover {
-    background-color: #97885e;
 }
 
 #fields {
@@ -119,6 +133,18 @@ button:hover {
     width: 60%;
     justify-content: center;
 }
+
+.field {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.field label {
+    margin-right: 0.5rem;
+}
+
 
 #fields input {
     background-color: #33373e;
@@ -161,10 +187,6 @@ button:hover {
     justify-content: center;
 }
 
-form {
-
-}
-
 #image {
     background-color: #33373e;
     border: 2px solid #25272d;
@@ -177,21 +199,5 @@ img {
     width: 100%;
     height: 100%;
     border-radius: 30px;
-}
-
-button.actions {
-    background-color: #b5a068;
-    border: none;
-    color: #25272d;
-    width: 10rem;
-    height: 2rem;
-    border-radius: 30px;
-    font-weight: bolder;
-    font-size: medium;
-    margin-top: 2rem;
-}
-
-button.actions:hover {
-    background-color: #97885e;
 }
 </style>

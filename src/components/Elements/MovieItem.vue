@@ -6,18 +6,25 @@
         </div>
         <div class="actions">
             <router-link :to="movieInfosPath">
-                <button>Infos</button>
+                <base-button>
+                    Infos
+                </base-button>
             </router-link>
             <router-link :to="movieEditPath">
-                <button>Edit</button>
+                <base-button>
+                    Edit
+                </base-button>
             </router-link>
         </div>
     </div>
 </template>
 
 <script>
+import BaseButton from "@/components/BaseButton.vue";
+
 export default {
     name: "MovieItem",
+    components: {BaseButton},
     props: ['movie'],
     computed: {
         movieInfosPath() {
@@ -42,20 +49,9 @@ export default {
 }
 
 .actions button {
-    background-color: #b5a068;
-    border: none;
-    color: #25272d;
     width: 5rem;
-    height: 2rem;
-    border-radius: 30px;
-    font-weight: bolder;
-    font-size: medium;
     margin-left: 1rem;
     margin-top: 1rem;
-}
-
-.actions button:hover {
-    background-color: #97885e;
 }
 
 .card {
