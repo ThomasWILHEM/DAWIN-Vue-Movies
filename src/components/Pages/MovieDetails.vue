@@ -59,7 +59,6 @@ export default {
     created() {
         this.movie = this.movies.filter(movie => movie.id == this.$route.params.id)[0];
         if (this.$route.name === 'movie-edit') {
-            console.log("oui");
             this.isEditMode = true;
         }
     },

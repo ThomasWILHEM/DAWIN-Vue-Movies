@@ -75,9 +75,10 @@ export default {
     },
     methods: {
         addMovie() {
-            this.$store.commit('addMovie', {movie: this.createdMovie});
-            this.$router.push('/');
-            console.log(this.createdMovie);
+            if (this.allInputEntered()) {
+                this.$store.commit('addMovie', {movie: this.createdMovie});
+                this.$router.push('/');
+            }
         },
         addDirector() {
             this.$store.commit('addDirector', {director: this.createdMovie.director});
@@ -99,6 +100,14 @@ export default {
             const directorId = event.target.value;
             this.createdMovie.director = this.directors[directorId - 1];
             console.log(this.createdMovie);
+        },
+        allInputEntered() {
+            return this.createdMovie.director.id != ""
+                && this.createdMovie.year != ""
+                && this.createdMovie.genre != ""
+                && this.createdMovie.image != ""
+                && this.createdMovie.language != ""
+                && this.createdMovie.title != ""
         }
     },
     computed: {
